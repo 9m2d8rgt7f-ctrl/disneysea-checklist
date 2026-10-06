@@ -2,7 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta name="theme-color" content="#075985">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ディズニーシー攻略">
+
 <title>東京ディズニーシー攻略チェックリスト</title>
 
 <style>
@@ -12,88 +18,114 @@
 
 body{
   margin:0;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Hiragino Kaku Gothic ProN",
-    "Hiragino Sans",
-    "Yu Gothic",
-    "Meiryo",
-    sans-serif;
   background:#f5f7fb;
-  color:#222;
+  color:#172033;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",
+    "Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;
 }
 
 header{
   position:sticky;
   top:0;
   z-index:10;
-  background:linear-gradient(135deg,#075985,#0284c7);
-  color:white;
-  padding:14px 16px;
+  background:#075985;
+  color:#fff;
+  padding:calc(12px + env(safe-area-inset-top)) 12px 12px;
   box-shadow:0 2px 8px rgba(0,0,0,.15);
 }
 
 .header-inner{
-  max-width:1100px;
-  margin:0 auto;
+  max-width:950px;
+  margin:auto;
 }
 
 h1{
-  margin:0 0 5px;
-  font-size:21px;
+  font-size:19px;
+  margin:0 0 6px;
   line-height:1.4;
 }
 
-.status{
+#summary{
   font-size:13px;
-  opacity:.95;
+  opacity:.9;
 }
 
-.container{
-  max-width:1100px;
-  margin:18px auto;
-  padding:0 12px;
+main{
+  max-width:950px;
+  margin:auto;
+  padding:10px;
 }
 
-.controls{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
-}
-
-button{
-  border:0;
-  border-radius:9px;
-  padding:9px 13px;
-  font-size:13px;
-  font-weight:bold;
+.panel{
   background:white;
-  color:#075985;
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
+  border-radius:15px;
+  padding:11px;
+  margin-bottom:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.07);
+}
+
+label{
+  font-size:13px;
+  font-weight:700;
+  display:block;
+  margin-bottom:5px;
+}
+
+button,
+select{
+  font:inherit;
+  border:1px solid #d5dbea;
+  background:white;
+  border-radius:10px;
+  padding:8px 10px;
+  min-height:40px;
   cursor:pointer;
 }
 
+button.active{
+  background:#075985;
+  color:white;
+  border-color:#075985;
+}
+
+button.reset{
+  color:#a22;
+  background:#fff5f5;
+}
+
 button:hover{
-  background:#eef8ff;
+  opacity:.9;
+}
+
+.row,
+.tags{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.small{
+  font-size:12px;
+  color:#667085;
+  margin-top:6px;
+  line-height:1.5;
 }
 
 .tablewrap{
   overflow:auto;
   background:white;
   border-radius:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 table{
   width:100%;
-  min-width:850px;
+  min-width:760px;
   border-collapse:separate;
   border-spacing:0;
 }
 
-th,td{
+th,
+td{
   padding:9px;
   border-bottom:1px solid #e8ebf2;
   text-align:left;
@@ -110,76 +142,57 @@ td{
   font-size:14px;
 }
 
-tbody tr:last-child td{
-  border-bottom:0;
+.check{
+  width:22px;
+  height:22px;
+  accent-color:#075985;
+  cursor:pointer;
 }
 
 .check-cell{
+  width:65px;
   text-align:center;
-  width:70px;
-}
-
-input[type="checkbox"]{
-  width:22px;
-  height:22px;
-  cursor:pointer;
-  accent-color:#0284c7;
 }
 
 .area{
+  font-size:12px;
+  color:#596579;
   white-space:nowrap;
-  font-size:13px;
-  color:#555;
 }
 
 .name{
-  font-weight:600;
+  font-weight:700;
   min-width:280px;
 }
 
-.types{
-  min-width:180px;
-}
-
-.type{
+.badge{
   display:inline-block;
-  margin:2px 3px 2px 0;
   padding:4px 7px;
-  border-radius:7px;
-  background:#eef2f8;
+  margin:2px 3px 2px 0;
+  border-radius:999px;
+  background:#f0f3f8;
   font-size:12px;
   white-space:nowrap;
 }
 
 .dpa{
+  font-weight:700;
   white-space:nowrap;
-  font-weight:bold;
   color:#b45309;
 }
 
-.no-dpa{
-  color:#888;
-  font-weight:normal;
+.none{
+  font-weight:400;
+  color:#98a2b3;
 }
 
 .checked-row{
-  background:#f3f8fb;
+  background:#f7fafc;
 }
 
 .checked-row .name{
-  color:#888;
+  color:#8a94a6;
   text-decoration:line-through;
-}
-
-.hidden-row{
-  display:none;
-}
-
-.note{
-  margin-top:12px;
-  color:#666;
-  font-size:12px;
-  line-height:1.6;
 }
 
 @media(max-width:600px){
@@ -191,8 +204,12 @@ input[type="checkbox"]{
     min-height:42px;
   }
 
-  .container{
-    margin-top:12px;
+  main{
+    padding:8px;
+  }
+
+  .panel{
+    padding:10px;
   }
 }
 </style>
@@ -203,24 +220,115 @@ input[type="checkbox"]{
 <header>
   <div class="header-inner">
     <h1>🌊 東京ディズニーシー攻略チェックリスト</h1>
-    <div class="status" id="status">
-      チェック済み 0 / 38 ・ 表示 38件
-    </div>
+    <div id="summary"></div>
   </div>
 </header>
 
-<main class="container">
+<main>
 
-  <div class="controls">
-    <button type="button" id="showAll">すべて表示</button>
-    <button type="button" id="showUnchecked">未チェックのみ</button>
-    <button type="button" id="showChecked">チェック済みのみ</button>
-    <button type="button" id="reset">チェックをリセット</button>
-  </div>
+  <!-- DPA・チェックフィルター -->
+  <section class="panel">
 
-  <div class="tablewrap">
+    <div class="row">
+
+      <div>
+        <label>DPA</label>
+
+        <button data-g="dpa" data-v="all" class="active">
+          すべて
+        </button>
+
+        <button data-g="dpa" data-v="yes">
+          DPAのみ
+        </button>
+
+        <button data-g="dpa" data-v="no">
+          DPAなし
+        </button>
+      </div>
+
+      <div>
+        <label>チェック</label>
+
+        <button data-g="check" data-v="all" class="active">
+          すべて
+        </button>
+
+        <button data-g="check" data-v="unchecked">
+          未チェック
+        </button>
+
+        <button data-g="check" data-v="checked">
+          チェック済み
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- 種類フィルター -->
+  <section class="panel">
+
+    <label>種類（複数選択は OR 条件）</label>
+
+    <div id="types" class="tags"></div>
+
+    <div class="small">
+      例：🎢＋🚤 →「コースター または ボート」
+    </div>
+
+  </section>
+
+
+  <!-- 並べ替え -->
+  <section class="panel">
+
+    <label>並べ替え</label>
+
+    <div class="row">
+
+      <select id="sort">
+
+        <option value="area">
+          エリア順
+        </option>
+
+        <option value="name">
+          アトラクション名順
+        </option>
+
+        <option value="type">
+          種類順
+        </option>
+
+        <option value="dpa">
+          DPA順
+        </option>
+
+        <option value="checked">
+          チェック済み優先
+        </option>
+
+      </select>
+
+      <button id="reset" class="reset">
+        チェックをすべてリセット
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- 一覧 -->
+  <section class="tablewrap">
+
     <table>
+
       <thead>
+
         <tr>
           <th>乗りたい</th>
           <th>エリア名</th>
@@ -228,390 +336,914 @@ input[type="checkbox"]{
           <th>種類</th>
           <th>DPA</th>
         </tr>
+
       </thead>
 
-      <tbody id="list"></tbody>
-    </table>
-  </div>
+      <tbody id="body"></tbody>
 
-  <div class="note">
-    ※ DPA料金は設定されている施設について表示しています。<br>
-    ※ グリーティングはキャラクターごとに分けています。<br>
-    ※ 花火・環境演出・パレード・ショーレストランは対象外です。
-  </div>
+    </table>
+
+  </section>
 
 </main>
 
+
 <script>
-const attractions = [
+
+/* =========================================================
+   東京ディズニーシー データ
+   ========================================================= */
+
+const data = [
+
+  /* メディテレーニアンハーバー */
+
   {
     area:"メディテレーニアンハーバー",
     name:"ヴェネツィアン・ゴンドラ",
-    types:["🚤 ボート"],
-    dpa:null
+    types:["🚤"],
+    dpa:0
   },
+
   {
     area:"メディテレーニアンハーバー",
     name:"ディズニーシー・トランジットスチーマーライン",
-    types:["🚤 ボート"],
-    dpa:null
+    types:["🚤"],
+    dpa:0
   },
+
   {
     area:"メディテレーニアンハーバー",
     name:"フォートレス・エクスプロレーション",
-    types:["🚶 ウォークスルー"],
-    dpa:null
+    types:["🚶"],
+    dpa:0
   },
+
   {
     area:"メディテレーニアンハーバー",
     name:"ソアリン：ファンタスティック・フライト",
-    types:["🎭 シアター","🚂 ライド"],
-    dpa:"2,500円"
+    types:["🎭","🚂"],
+    dpa:2500
   },
+
   {
     area:"メディテレーニアンハーバー",
     name:"ビリーヴ！～シー・オブ・ドリームス～",
-    types:["🎬 ショー"],
-    dpa:"2,500円"
+    types:["🎬"],
+    dpa:2500
   },
+
+
+  /* アメリカンウォーターフロント */
 
   {
     area:"アメリカンウォーターフロント",
     name:"タワー・オブ・テラー",
-    types:["🎢 コースター"],
-    dpa:"1,500円"
+    types:["🎢"],
+    dpa:1500
   },
+
   {
     area:"アメリカンウォーターフロント",
     name:"トイ・ストーリー・マニア！",
-    types:["🚂 ライド","🎯 インタラクティブ"],
-    dpa:"2,000円"
+    types:["🚂","🎯"],
+    dpa:2000
   },
+
   {
     area:"アメリカンウォーターフロント",
     name:"タートル・トーク",
-    types:["🎭 シアター","🎯 インタラクティブ"],
-    dpa:null
+    types:["🎭","🎯"],
+    dpa:0
   },
+
   {
     area:"アメリカンウォーターフロント",
     name:"ディズニーシー・エレクトリックレールウェイ",
-    types:["🚂 ライド"],
-    dpa:null
+    types:["🚂"],
+    dpa:0
   },
+
   {
     area:"アメリカンウォーターフロント",
     name:"ビッグシティ・ヴィークル",
-    types:["🚂 ライド"],
-    dpa:null
+    types:["🚂"],
+    dpa:0
   },
+
   {
     area:"アメリカンウォーターフロント",
     name:"シェリーメイとのグリーティング",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   },
+
   {
     area:"アメリカンウォーターフロント",
     name:"ダンス・ザ・グローブ！",
-    types:["🎬 ショー"],
-    dpa:"2,500円"
+    types:["🎬"],
+    dpa:2500
   },
+
+
+  /* ポートディスカバリー */
 
   {
     area:"ポートディスカバリー",
     name:"ニモ＆フレンズ・シーライダー",
-    types:["🎭 シアター"],
-    dpa:null
+    types:["🎭"],
+    dpa:0
   },
+
+
+  /* ロストリバーデルタ */
 
   {
     area:"ロストリバーデルタ",
     name:"インディ・ジョーンズ・アドベンチャー：クリスタルスカルの魔宮",
-    types:["🎢 コースター"],
-    dpa:"1,500円"
+    types:["🎢"],
+    dpa:1500
   },
+
   {
     area:"ロストリバーデルタ",
     name:"レイジングスピリッツ",
-    types:["🎢 コースター"],
-    dpa:"1,500円"
+    types:["🎢"],
+    dpa:1500
   },
+
   {
     area:"ロストリバーデルタ",
     name:"ミッキーとのグリーティング",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   },
+
   {
     area:"ロストリバーデルタ",
     name:"ミニーとのグリーティング",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   },
+
   {
     area:"ロストリバーデルタ",
     name:"ドナルドとのグリーティング",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   },
+
   {
     area:"ロストリバーデルタ",
     name:"ダッフィーとのグリーティング",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   },
+
   {
     area:"ロストリバーデルタ",
     name:"ミゲルとのグリーティング",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   },
+
   {
     area:"ロストリバーデルタ",
     name:"ドリームス・テイク・フライト",
-    types:["🎬 ショー"],
-    dpa:"2,500円"
+    types:["🎬"],
+    dpa:2500
   },
+
+
+  /* ファンタジースプリングス */
 
   {
     area:"ファンタジースプリングス",
     name:"アナとエルサのフローズンジャーニー",
-    types:["🚤 ボート"],
-    dpa:"2,500円"
+    types:["🚤"],
+    dpa:2500
   },
+
   {
     area:"ファンタジースプリングス",
     name:"ラプンツェルのランタンフェスティバル",
-    types:["🚤 ボート"],
-    dpa:"2,000円"
+    types:["🚤"],
+    dpa:2000
   },
+
   {
     area:"ファンタジースプリングス",
     name:"ピーターパンのネバーランドアドベンチャー",
-    types:["🚂 ライド","🎭 シアター","🚤 ボート"],
-    dpa:"2,000円"
+    types:["🚂","🎭","🚤"],
+    dpa:2000
   },
+
   {
     area:"ファンタジースプリングス",
     name:"フェアリー・ティンカーベルのビジーバギー",
-    types:["🚂 ライド"],
-    dpa:null
+    types:["🚂"],
+    dpa:0
   },
+
+
+  /* アラビアンコースト */
 
   {
     area:"アラビアンコースト",
     name:"シンドバッド・ストーリーブック・ヴォヤッジ",
-    types:["🚤 ボート"],
-    dpa:null
+    types:["🚤"],
+    dpa:0
   },
+
   {
     area:"アラビアンコースト",
     name:"キャラバンカルーセル",
-    types:["🔄 回転"],
-    dpa:null
+    types:["🔄"],
+    dpa:0
   },
+
   {
     area:"アラビアンコースト",
     name:"ジャスミンのフライングカーペット",
-    types:["🔄 回転"],
-    dpa:null
+    types:["🔄"],
+    dpa:0
   },
+
   {
     area:"アラビアンコースト",
     name:"マジックランプシアター",
-    types:["🎭 シアター"],
-    dpa:null
+    types:["🎭"],
+    dpa:0
   },
+
+
+  /* マーメイドラグーン */
 
   {
     area:"マーメイドラグーン",
     name:"フランダーのフライングフィッシュコースター",
-    types:["🎢 コースター"],
-    dpa:null
+    types:["🎢"],
+    dpa:0
   },
+
   {
     area:"マーメイドラグーン",
     name:"スカットルのスクーター",
-    types:["🔄 回転"],
-    dpa:null
+    types:["🔄"],
+    dpa:0
   },
+
   {
     area:"マーメイドラグーン",
     name:"ジャンピン・ジェリーフィッシュ",
-    types:["🔄 回転"],
-    dpa:null
+    types:["🔄"],
+    dpa:0
   },
+
   {
     area:"マーメイドラグーン",
     name:"ブローフィッシュ・バルーンレース",
-    types:["🔄 回転"],
-    dpa:null
+    types:["🔄"],
+    dpa:0
   },
+
   {
     area:"マーメイドラグーン",
     name:"ワールプール",
-    types:["🔄 回転"],
-    dpa:null
+    types:["🔄"],
+    dpa:0
   },
+
   {
     area:"マーメイドラグーン",
     name:"アリエルのプレイグラウンド",
-    types:["🚶 ウォークスルー"],
-    dpa:null
+    types:["🚶"],
+    dpa:0
   },
+
+
+  /* ミステリアスアイランド */
 
   {
     area:"ミステリアスアイランド",
     name:"センター・オブ・ジ・アース",
-    types:["🎢 コースター"],
-    dpa:"2,000円"
+    types:["🎢"],
+    dpa:2000
   },
+
   {
     area:"ミステリアスアイランド",
     name:"海底2万マイル",
-    types:["🚤 ボート"],
-    dpa:null
+    types:["🚤"],
+    dpa:0
   },
+
+
+  /* パークエントランス */
 
   {
     area:"パークエントランス",
     name:"ディズニーシー・プラザ（キャラクターグリーティング）",
-    types:["🤝 グリーティング"],
-    dpa:null
+    types:["🤝"],
+    dpa:0
   }
+
 ];
 
-const STORAGE_KEY = "disneysea-checklist-state";
 
-let checked = loadState();
-let filter = "all";
+/* =========================================================
+   種類
+   ========================================================= */
 
-function loadState(){
-  try{
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if(Array.isArray(saved) && saved.length === attractions.length){
-      return saved;
+const types = [
+  "🎢",
+  "🚤",
+  "🚂",
+  "🚶",
+  "🎭",
+  "🎯",
+  "🤝",
+  "🔄",
+  "🎬"
+];
+
+const typeName = {
+  "🎢":"コースター",
+  "🚤":"ボート",
+  "🚂":"ライド",
+  "🚶":"ウォークスルー",
+  "🎭":"シアター",
+  "🎯":"インタラクティブ",
+  "🤝":"グリーティング",
+  "🔄":"回転",
+  "🎬":"ショー"
+};
+
+
+/* =========================================================
+   保存
+   ========================================================= */
+
+const STORAGE_KEY = "tds_check_v1";
+
+let checked = [];
+
+try{
+  checked = JSON.parse(
+    localStorage.getItem(STORAGE_KEY) || "[]"
+  );
+
+  if(!Array.isArray(checked)){
+    checked=[];
+  }
+
+}catch(e){
+  checked=[];
+}
+
+
+/* =========================================================
+   フィルター・並べ替え
+   ========================================================= */
+
+let filter = {
+  dpa:"all",
+  check:"all",
+  types:[]
+};
+
+let sort = "area";
+
+
+/* =========================================================
+   エリア順
+   ========================================================= */
+
+const areaOrder = [
+  "メディテレーニアンハーバー",
+  "アメリカンウォーターフロント",
+  "ポートディスカバリー",
+  "ロストリバーデルタ",
+  "ファンタジースプリングス",
+  "アラビアンコースト",
+  "マーメイドラグーン",
+  "ミステリアスアイランド",
+  "パークエントランス"
+];
+
+
+/* =========================================================
+   種類ボタン生成
+   ========================================================= */
+
+const typeBox = document.getElementById("types");
+
+types.forEach(type => {
+
+  const button = document.createElement("button");
+
+  button.textContent =
+    type + " " + typeName[type];
+
+  button.onclick = () => {
+
+    if(filter.types.includes(type)){
+
+      filter.types =
+        filter.types.filter(
+          x => x !== type
+        );
+
+    }else{
+
+      filter.types =
+        [...filter.types,type];
+
     }
-  }catch(e){}
 
-  return attractions.map(() => false);
+    button.classList.toggle(
+      "active",
+      filter.types.includes(type)
+    );
+
+    render();
+  };
+
+  typeBox.appendChild(button);
+
+});
+
+
+/* =========================================================
+   DPA・チェックフィルター
+   ========================================================= */
+
+document
+  .querySelectorAll("[data-g]")
+  .forEach(button => {
+
+    button.onclick = () => {
+
+      const group =
+        button.dataset.g;
+
+      const value =
+        button.dataset.v;
+
+      filter[group] = value;
+
+      document
+        .querySelectorAll(
+          '[data-g="' + group + '"]'
+        )
+        .forEach(other => {
+          other.classList.remove("active");
+        });
+
+      button.classList.add("active");
+
+      render();
+
+    };
+
+  });
+
+
+/* =========================================================
+   並べ替え
+   ========================================================= */
+
+document
+  .getElementById("sort")
+  .onchange = event => {
+
+    sort = event.target.value;
+
+    render();
+
+  };
+
+
+/* =========================================================
+   保存
+   ========================================================= */
+
+function save(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(checked)
+  );
+
 }
 
-function saveState(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(checked));
-}
 
-function render(){
-  const list = document.getElementById("list");
-  list.innerHTML = "";
+/* =========================================================
+   リセット
+   ========================================================= */
 
-  let visibleCount = 0;
-
-  attractions.forEach((item,index)=>{
-    const isChecked = checked[index];
+document
+  .getElementById("reset")
+  .onclick = () => {
 
     if(
-      (filter === "unchecked" && isChecked) ||
-      (filter === "checked" && !isChecked)
+      confirm(
+        "チェックをすべてリセットしますか？"
+      )
     ){
-      return;
+
+      checked = [];
+
+      save();
+
+      render();
+
     }
 
-    visibleCount++;
+  };
 
-    const tr = document.createElement("tr");
 
-    if(isChecked){
-      tr.classList.add("checked-row");
+/* =========================================================
+   チェック状態
+   ========================================================= */
+
+function isChecked(index){
+
+  return checked.includes(index);
+
+}
+
+
+/* =========================================================
+   表示対象の取得
+   ========================================================= */
+
+function getRows(){
+
+  let rows =
+    data.map((item,index) => ({
+      item,
+      index,
+      done:isChecked(index)
+    }));
+
+
+  /* DPA */
+
+  if(filter.dpa === "yes"){
+
+    rows =
+      rows.filter(
+        row => row.item.dpa > 0
+      );
+
+  }
+
+  if(filter.dpa === "no"){
+
+    rows =
+      rows.filter(
+        row => row.item.dpa === 0
+      );
+
+  }
+
+
+  /* チェック */
+
+  if(filter.check === "checked"){
+
+    rows =
+      rows.filter(
+        row => row.done
+      );
+
+  }
+
+  if(filter.check === "unchecked"){
+
+    rows =
+      rows.filter(
+        row => !row.done
+      );
+
+  }
+
+
+  /* 種類
+     複数選択は OR 条件 */
+
+  if(filter.types.length > 0){
+
+    rows =
+      rows.filter(row =>
+        filter.types.some(
+          type =>
+            row.item.types.includes(type)
+        )
+      );
+
+  }
+
+
+  /* 並べ替え */
+
+  if(sort === "area"){
+
+    rows.sort((a,b) => {
+
+      const areaA =
+        areaOrder.indexOf(a.item.area);
+
+      const areaB =
+        areaOrder.indexOf(b.item.area);
+
+      return (
+        areaA - areaB ||
+        a.index - b.index
+      );
+
+    });
+
+  }
+
+
+  if(sort === "name"){
+
+    rows.sort((a,b) =>
+      a.item.name.localeCompare(
+        b.item.name,
+        "ja"
+      )
+    );
+
+  }
+
+
+  if(sort === "type"){
+
+    rows.sort((a,b) => {
+
+      const typeA =
+        a.item.types.join(",");
+
+      const typeB =
+        b.item.types.join(",");
+
+      return typeA.localeCompare(
+        typeB
+      );
+
+    });
+
+  }
+
+
+  if(sort === "dpa"){
+
+    rows.sort((a,b) =>
+      (b.item.dpa || 0) -
+      (a.item.dpa || 0)
+    );
+
+  }
+
+
+  if(sort === "checked"){
+
+    rows.sort((a,b) =>
+      Number(b.done) -
+      Number(a.done) ||
+      a.index -
+      b.index
+    );
+
+  }
+
+
+  return rows;
+
+}
+
+
+/* =========================================================
+   表示
+   ========================================================= */
+
+function render(){
+
+  const rows = getRows();
+
+  const body =
+    document.getElementById("body");
+
+  body.innerHTML = "";
+
+
+  rows.forEach(row => {
+
+    const item = row.item;
+    const index = row.index;
+
+    const tr =
+      document.createElement("tr");
+
+
+    if(row.done){
+
+      tr.classList.add(
+        "checked-row"
+      );
+
     }
 
-    const checkTd = document.createElement("td");
-    checkTd.className = "check-cell";
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = isChecked;
+    /* チェック */
+
+    const checkTd =
+      document.createElement("td");
+
+    checkTd.className =
+      "check-cell";
+
+
+    const checkbox =
+      document.createElement("input");
+
+    checkbox.type =
+      "checkbox";
+
+    checkbox.className =
+      "check";
+
+    checkbox.checked =
+      row.done;
+
+
     checkbox.setAttribute(
       "aria-label",
       item.name + "をチェック"
     );
 
-    checkbox.addEventListener("change",()=>{
-      checked[index] = checkbox.checked;
-      saveState();
+
+    checkbox.onchange = () => {
+
+      if(checkbox.checked){
+
+        if(!checked.includes(index)){
+
+          checked.push(index);
+
+        }
+
+      }else{
+
+        checked =
+          checked.filter(
+            i => i !== index
+          );
+
+      }
+
+      save();
+
       render();
+
+    };
+
+
+    checkTd.appendChild(
+      checkbox
+    );
+
+    tr.appendChild(
+      checkTd
+    );
+
+
+    /* エリア */
+
+    const areaTd =
+      document.createElement("td");
+
+    areaTd.className =
+      "area";
+
+    areaTd.textContent =
+      item.area;
+
+    tr.appendChild(
+      areaTd
+    );
+
+
+    /* 名前 */
+
+    const nameTd =
+      document.createElement("td");
+
+    nameTd.className =
+      "name";
+
+    nameTd.textContent =
+      item.name;
+
+    tr.appendChild(
+      nameTd
+    );
+
+
+    /* 種類 */
+
+    const typeTd =
+      document.createElement("td");
+
+
+    item.types.forEach(type => {
+
+      const badge =
+        document.createElement("span");
+
+      badge.className =
+        "badge";
+
+      badge.textContent =
+        type + " " + typeName[type];
+
+      typeTd.appendChild(
+        badge
+      );
+
     });
 
-    checkTd.appendChild(checkbox);
 
-    const areaTd = document.createElement("td");
-    areaTd.className = "area";
-    areaTd.textContent = item.area;
+    tr.appendChild(
+      typeTd
+    );
 
-    const nameTd = document.createElement("td");
-    nameTd.className = "name";
-    nameTd.textContent = item.name;
 
-    const typesTd = document.createElement("td");
-    typesTd.className = "types";
+    /* DPA */
 
-    item.types.forEach(type=>{
-      const span = document.createElement("span");
-      span.className = "type";
-      span.textContent = type;
-      typesTd.appendChild(span);
-    });
+    const dpaTd =
+      document.createElement("td");
 
-    const dpaTd = document.createElement("td");
+    if(item.dpa > 0){
 
-    if(item.dpa){
-      dpaTd.className = "dpa";
-      dpaTd.textContent = item.dpa;
+      dpaTd.className =
+        "dpa";
+
+      dpaTd.textContent =
+        item.dpa.toLocaleString() +
+        "円";
+
     }else{
-      dpaTd.className = "dpa no-dpa";
-      dpaTd.textContent = "—";
+
+      dpaTd.className =
+        "dpa none";
+
+      dpaTd.textContent =
+        "—";
+
     }
 
-    tr.appendChild(checkTd);
-    tr.appendChild(areaTd);
-    tr.appendChild(nameTd);
-    tr.appendChild(typesTd);
-    tr.appendChild(dpaTd);
 
-    list.appendChild(tr);
+    tr.appendChild(
+      dpaTd
+    );
+
+
+    body.appendChild(
+      tr
+    );
+
   });
 
-  const checkedCount = checked.filter(Boolean).length;
 
-  document.getElementById("status").textContent =
-    `チェック済み ${checkedCount} / ${attractions.length} ・ 表示 ${visibleCount}件`;
+  /* サマリー */
+
+  const checkedCount =
+    checked.length;
+
+  document
+    .getElementById("summary")
+    .textContent =
+      "チェック済み " +
+      checkedCount +
+      " / " +
+      data.length +
+      " ・ 表示 " +
+      rows.length +
+      "件";
+
 }
 
-document.getElementById("showAll").addEventListener("click",()=>{
-  filter = "all";
-  render();
-});
 
-document.getElementById("showUnchecked").addEventListener("click",()=>{
-  filter = "unchecked";
-  render();
-});
-
-document.getElementById("showChecked").addEventListener("click",()=>{
-  filter = "checked";
-  render();
-});
-
-document.getElementById("reset").addEventListener("click",()=>{
-  if(confirm("チェックをすべてリセットしますか？")){
-    checked = attractions.map(() => false);
-    saveState();
-    render();
-  }
-});
+/* =========================================================
+   初期表示
+   ========================================================= */
 
 render();
+
 </script>
 
 </body>
